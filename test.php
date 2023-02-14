@@ -1,19 +1,19 @@
 <?php
 namespace Man;
-include ("test1.php");
-include ("test2.php");
+include ("1.php");
+include ("2.php");
 use Manager as Man;
 
 echo 'getUsers = ';print_r( Man\User::getUsers('40') );echo '<br>';
 
 $names = array('Rob', 'Vov');
+$names_query = '';
 
-$names_query = urlencode($names);
-
-if(empty($_GET['validate'])!=null) {
+if(empty($_GET['validate'])) {
     $validate = serialize(array('Rob', 'Vov'));
     $hmac = hash_hmac('sha1', $validate, '2023');
     $link = 'http://localhost/Joomla_3.9.27/Tests/NodaSoft/test.php?names='.$names_query.'&validate=' . $hmac;
+
     header($link);exit();
 }else{
     echo 'getByNames = ';print_r( Man\User::getByNames($_GET['names'],$_GET['validate']) );echo '<br>';
